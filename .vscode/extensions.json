@@ -1,0 +1,102 @@
+{
+  "recommendations": [
+    // AI Coding Assistants
+    "github.copilot",
+    "github.copilot-chat",
+    "anthropic.claude-code",
+    
+    // Task Management and Productivity
+    "gruntfuggly.todo-tree",
+    "aaron-bond.better-comments",
+    "alefragnani.bookmarks",
+    "wayou.vscode-todo-highlight",
+    
+    // Code Quality and Formatting
+    "esbenp.prettier-vscode",
+    "ms-vscode.vscode-eslint",
+    "ms-python.black-formatter",
+    "ms-python.flake8",
+    "ms-python.pylint",
+    "bradlc.vscode-tailwindcss",
+    
+    // Language Support
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "ms-vscode.vscode-typescript-next",
+    "ms-vscode.vscode-json",
+    "redhat.vscode-yaml",
+    "ms-vscode.vscode-markdown",
+    "yzhang.markdown-all-in-one",
+    
+    // Git and Version Control
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+    "donjayamanne.githistory",
+    
+    // Development Tools
+    "ms-vscode.vscode-docker",
+    "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "hashicorp.terraform",
+    "ms-vscode.vscode-restclient",
+    "humao.rest-client",
+    
+    // UI and Themes (ADHD-friendly)
+    "pkief.material-icon-theme",
+    "github.github-vscode-theme",
+    "dracula-theme.theme-dracula",
+    "monokai.theme-monokai-pro-vscode",
+    
+    // Productivity and Focus
+    "vscodevim.vim",
+    "ms-vscode.vscode-keybindings",
+    "formulahendry.auto-rename-tag",
+    "christian-kohler.path-intellisense",
+    "visualstudioexptteam.vscodeintellicode",
+    
+    // Documentation and Comments
+    "mintlify.document",
+    "streetsidesoftware.code-spell-checker",
+    "davidanson.vscode-markdownlint",
+    
+    // API and Database Tools
+    "ms-vscode.vscode-sqlite",
+    "cweijan.vscode-mysql-client2",
+    "ms-vscode.vscode-postman",
+    
+    // Cloud and Deployment
+    "ms-vscode.vscode-azure-account",
+    "googlecloudtools.cloudcode",
+    "amazonwebservices.aws-toolkit-vscode",
+    
+    // Debugging and Testing
+    "ms-vscode.vscode-test-adapter-api",
+    "ms-vscode.test-adapter-converter",
+    "ms-python.python-test-adapter",
+    
+    // File Management
+    "alefragnani.project-manager",
+    "ms-vscode.vscode-file-watcher",
+    "formulahendry.auto-close-tag",
+    
+    // Performance and Monitoring
+    "ms-vscode.vscode-performance-profiler",
+    "ms-vscode.vscode-memory-usage",
+    
+    // ADHD-Specific Productivity
+    "pomodoro-timer.pomodoro-timer",
+    "gruntfuggly.activitusbar",
+    "johnpapa.vscode-peacock",
+    "oderwat.indent-rainbow",
+    "coenraads.bracket-pair-colorizer-2"
+  ],
+  "unwantedRecommendations": [
+    // Extensions that might conflict with AI tools
+    "tabnine.tabnine-vscode",
+    "visualstudioexptteam.intellicode-api-usage-examples",
+    
+    // Heavy extensions that might slow down the editor
+    "ms-vscode.vscode-live-server-plus-plus",
+    "ritwickdey.liveserver"
+  ]
+}
+

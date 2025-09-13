@@ -1,0 +1,192 @@
+{
+  // Editor settings optimized for AI-assisted development
+  "editor.fontSize": 14,
+  "editor.lineHeight": 1.6,
+  "editor.fontFamily": "'Fira Code', 'Cascadia Code', 'JetBrains Mono', Consolas, 'Courier New', monospace",
+  "editor.fontLigatures": true,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": true,
+  "editor.wordWrap": "on",
+  "editor.minimap.enabled": true,
+  "editor.minimap.maxColumn": 120,
+  "editor.rulers": [80, 120],
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
+  },
+
+  // GitHub Copilot settings
+  "github.copilot.enable": {
+    "*": true,
+    "yaml": true,
+    "plaintext": true,
+    "markdown": true
+  },
+  "github.copilot.editor.enableAutoCompletions": true,
+  "github.copilot.chat.localeOverride": "en",
+  "github.copilot.advanced": {
+    "secret_key": "github-copilot",
+    "length": 500,
+    "temperature": 0.1,
+    "top_p": 1,
+    "stop": ["\n\n", "\n\r\n", "\r\n\r\n"]
+  },
+
+  // Claude Code integration
+  "claude.apiKey": "${CLAUDE_API_KEY}",
+  "claude.model": "claude-3-5-sonnet-20241022",
+  "claude.maxTokens": 4096,
+  "claude.temperature": 0.1,
+  "claude.enableCodeCompletion": true,
+  "claude.enableChatMode": true,
+
+  // File associations for AI tools
+  "files.associations": {
+    "*.md": "markdown",
+    "AGENTS.md": "markdown",
+    "*.agents": "markdown",
+    ".taskmaster/**/*.md": "markdown",
+    "*.prompt": "plaintext",
+    "*.ai": "plaintext"
+  },
+
+  // Search and file explorer
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/*.code-search": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/.ai-cache": true,
+    "**/usage-data": true
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/node_modules": false
+  },
+
+  // Terminal settings
+  "terminal.integrated.fontSize": 13,
+  "terminal.integrated.fontFamily": "'Fira Code', 'Cascadia Code', monospace",
+  "terminal.integrated.shell.osx": "/bin/zsh",
+  "terminal.integrated.shell.linux": "/bin/bash",
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+
+  // Git settings
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+  "git.autofetch": true,
+  "git.autoStash": true,
+
+  // Language-specific settings
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    }
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    }
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "off",
+      "other": "off"
+    }
+  },
+
+  // AI-specific file handling
+  "[agents]": {
+    "editor.wordWrap": "on",
+    "editor.lineNumbers": "on"
+  },
+
+  // Taskmaster integration
+  "taskmaster.enabled": true,
+  "taskmaster.autoRefresh": true,
+  "taskmaster.showInStatusBar": true,
+  "taskmaster.defaultTaskTemplate": ".taskmaster/templates/default-task.md",
+
+  // Budget and usage tracking
+  "aiUsage.trackTokens": true,
+  "aiUsage.budgetLimit": 100,
+  "aiUsage.alertThreshold": 0.8,
+  "aiUsage.logFile": "usage-data/daily-usage.json",
+
+  // ADHD-friendly settings
+  "workbench.colorTheme": "GitHub Dark Default",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.activityBar.visible": true,
+  "workbench.statusBar.visible": true,
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.enablePreviewFromQuickOpen": false,
+  "workbench.startupEditor": "newUntitledFile",
+  "workbench.tips.enabled": false,
+  "workbench.welcomePage.walkthroughs.openOnInstall": false,
+
+  // Focus and distraction management
+  "zenMode.centerLayout": false,
+  "zenMode.fullScreen": false,
+  "zenMode.hideActivityBar": false,
+  "zenMode.hideStatusBar": false,
+  "zenMode.hideTabs": false,
+  "zenMode.restore": true,
+
+  // Extensions settings
+  "extensions.autoUpdate": true,
+  "extensions.autoCheckUpdates": true,
+  "extensions.ignoreRecommendations": false,
+
+  // Performance optimizations
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/*/**": true,
+    "**/.ai-cache/**": true,
+    "**/usage-data/**": true
+  },
+
+  // AI prompt templates
+  "aiPrompts.templates": {
+    "codeReview": "Please review this code for best practices, potential bugs, and optimization opportunities:",
+    "documentation": "Generate comprehensive documentation for this code including usage examples:",
+    "testing": "Create unit tests for this function with edge cases and error handling:",
+    "refactor": "Refactor this code to improve readability, performance, and maintainability:",
+    "debug": "Help me debug this issue. Here's the error and relevant code:"
+  },
+
+  // Custom keybindings for AI tools
+  "keyboard.dispatch": "keyCode",
+  
+  // Workspace trust
+  "security.workspace.trust.untrustedFiles": "open",
+  "security.workspace.trust.banner": "never",
+  "security.workspace.trust.startupPrompt": "never"
+}
+
