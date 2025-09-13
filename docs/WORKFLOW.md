@@ -20,7 +20,7 @@ This guide outlines the complete workflow for AI-assisted development, designed 
 
 #### **1.2 Research Tools & Solutions**
 - **Sources:** 
-  - Google Cloud Console documentation
+  - Google Cloud documentation
   - Google for Developers docs
   - GitHub repositories
   - Stack Overflow
