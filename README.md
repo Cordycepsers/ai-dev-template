@@ -48,6 +48,14 @@ ai-dev-template/
 │   └── tasks.json             # One-click Taskmaster integration
 ├── 🎯 .cursor/                 # Cursor IDE configuration
 │   └── mcp.json               # MCP server for Taskmaster AI
+├── 🤖 .claude/                 # Claude Code integration
+│   ├── agents/                # Specialized Claude agents
+│   │   ├── task-checker.md    # Quality assurance agent
+│   │   ├── task-executor.md   # Implementation specialist
+│   │   └── task-orchestrator.md # Strategic planning agent
+│   └── commands/              # Claude-specific commands
+│       ├── tm                 # Task Master CLI wrapper
+│       └── TM_COMMANDS_GUIDE.md # Command reference
 ├── 📋 .taskmaster/             # Task management system
 │   ├── docs/                  # Project documentation
 │   │   └── prd.txt            # Your Product Requirements Document
@@ -171,6 +179,7 @@ Review this Python function for bugs and performance issues."
 - **[🔄 WORKFLOW.md](docs/WORKFLOW.md)** - Complete ADHD-friendly development workflow
 - **[🤖 AGENTS.md](docs/AGENTS.md)** - AI agent personas and instructions
 - **[📖 HOW-TO-USE-AGENTS.md](docs/HOW-TO-USE-AGENTS.md)** - Complete guide to using AGENTS.md effectively
+- **[🎯 .claude/](.claude/)** - Claude Code integration with specialized agents and commands
 - **Setup Scripts** - Platform-specific automated setup
 
 ### **Workflow Overview**

@@ -1,0 +1,657 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Project Initialization & Security Setup",
+        "description": "Create a new Google Cloud Project and set up project billing, budgets/alerts, service accounts, API keys, and IAM roles.",
+        "status": "pending",
+        "dependencies": [],
+        "priority": "high",
+        "details": "Create the foundational cloud infrastructure including:\n- New Google Cloud Project creation\n- Project billing and budget/alert configuration\n- Dedicated service accounts (workflow-sa, functions-sa)\n- Gemini API Key generation from Google AI Studio\n- Secure storage of API keys and secrets in Google Cloud Secret Manager\n- IAM role assignments (Secret Accessor, Function Invoker, etc.)",
+        "testStrategy": "Verify that the Google Cloud Project is created successfully and billing is configured. Test service account creation and IAM role assignments. Validate that API keys are properly stored in Secret Manager and accessible by the service accounts.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create a new Google Cloud Project",
+            "description": "Set up a new Google Cloud Project with appropriate naming and organization structure.",
+            "status": "pending",
+            "dependencies": [],
+            "acceptanceCriteria": "- Google Cloud Project is created with descriptive name\n- Project is associated with correct billing account\n- Project ID follows naming conventions\n- Basic project settings are configured"
+          },
+          {
+            "id": 2,
+            "title": "Set up project billing and budgets/alerts",
+            "description": "Configure billing account, set up budget limits, and create cost alerts to monitor spending.",
+            "status": "pending",
+            "dependencies": [1],
+            "acceptanceCriteria": "- Billing account is linked to the project\n- Monthly budget limit is set ($500-2000 range)\n- Cost alerts are configured at 50%, 80%, and 100% thresholds\n- Budget notifications are sent to appropriate stakeholders"
+          },
+          {
+            "id": 3,
+            "title": "Create dedicated service accounts",
+            "description": "Create service accounts for different components (workflow-sa, functions-sa) with principle of least privilege.",
+            "status": "pending",
+            "dependencies": [1],
+            "acceptanceCriteria": "- workflow-sa service account created for Cloud Workflows\n- functions-sa service account created for Cloud Functions\n- Service accounts follow naming conventions\n- JSON key files are generated securely"
+          },
+          {
+            "id": 4,
+            "title": "Generate Gemini API Key",
+            "description": "Access Google AI Studio and generate API key for Gemini integration.",
+            "status": "pending",
+            "dependencies": [1],
+            "acceptanceCriteria": "- Gemini API key is generated from Google AI Studio\n- API key has appropriate permissions and quotas\n- API key is tested with a simple request\n- Key usage limits are documented"
+          },
+          {
+            "id": 5,
+            "title": "Store secrets in Google Cloud Secret Manager",
+            "description": "Securely store API keys, folder IDs, and other sensitive configuration in Secret Manager.",
+            "status": "pending",
+            "dependencies": [3, 4],
+            "acceptanceCriteria": "- Gemini API key stored in Secret Manager\n- Google Drive folder ID stored securely\n- Database connection strings stored if applicable\n- Secret access permissions configured correctly"
+          },
+          {
+            "id": 6,
+            "title": "Grant service accounts appropriate IAM roles",
+            "description": "Assign minimal required IAM roles to service accounts for secure operation.",
+            "status": "pending",
+            "dependencies": [3, 5],
+            "acceptanceCriteria": "- Service accounts have Secret Manager Secret Accessor role\n- Cloud Functions Invoker role assigned where needed\n- Storage Object Admin role for GCS operations\n- Firestore User role for database operations\n- No excessive permissions granted"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Infrastructure as Code (Terraform) Setup",
+        "description": "Initialize Git repository and create Terraform infrastructure code for core Google Cloud resources.",
+        "status": "pending",
+        "dependencies": [1],
+        "priority": "high",
+        "details": "Implement Infrastructure as Code using Terraform including:\n- Git repository initialization with proper structure\n- Terraform directory structure (main.tf, variables.tf, outputs.tf)\n- GCS bucket for Terraform state management\n- Core resource definitions (GCS buckets, Pub/Sub topics, Firestore, Cloud Functions, Cloud Workflows)\n- Terraform state file management and remote backend configuration",
+        "testStrategy": "Test Terraform configuration with terraform plan to verify resource definitions. Run terraform apply in a test environment to validate infrastructure provisioning. Verify that all resources are created correctly and state is managed properly.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Initialize Git repository for the project",
+            "description": "Create Git repository with proper structure, .gitignore, and initial commit.",
+            "status": "pending",
+            "dependencies": [],
+            "acceptanceCriteria": "- Git repository initialized with proper structure\n- .gitignore file includes Terraform and cloud-specific exclusions\n- README.md with project description\n- Initial commit with basic project structure"
+          },
+          {
+            "id": 2,
+            "title": "Create Terraform directory structure",
+            "description": "Set up Terraform project structure with main.tf, variables.tf, outputs.tf, and modules.",
+            "status": "pending",
+            "dependencies": [1],
+            "acceptanceCriteria": "- terraform/ directory created with proper structure\n- main.tf with provider configuration\n- variables.tf with all required variables\n- outputs.tf with resource outputs\n- modules/ directory for reusable components"
+          },
+          {
+            "id": 3,
+            "title": "Create GCS bucket for Terraform state",
+            "description": "Set up Google Cloud Storage bucket for remote Terraform state management.",
+            "status": "pending",
+            "dependencies": [2],
+            "acceptanceCriteria": "- GCS bucket created for Terraform state\n- Bucket versioning enabled\n- Bucket access restricted to project team\n- Backend configuration in Terraform"
+          },
+          {
+            "id": 4,
+            "title": "Write Terraform code for core resources",
+            "description": "Define all core Google Cloud resources in Terraform configuration files.",
+            "status": "pending",
+            "dependencies": [3],
+            "acceptanceCriteria": "- GCS buckets for source code, configs, and PDFs\n- Pub/Sub topics for event-driven architecture\n- Firestore database configuration\n- Cloud Functions definitions (empty initially)\n- Cloud Workflow definitions\n- IAM bindings and service accounts"
+          },
+          {
+            "id": 5,
+            "title": "Run terraform apply to provision infrastructure",
+            "description": "Execute Terraform to create the foundational infrastructure in Google Cloud.",
+            "status": "pending",
+            "dependencies": [4],
+            "acceptanceCriteria": "- All resources created successfully\n- No Terraform errors or warnings\n- State file stored in remote backend\n- Resource outputs available for reference\n- Infrastructure ready for application deployment"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Develop Stage 1 Scraper (stage1-scraper)",
+        "description": "Build the first stage scraper that discovers tender opportunities from configured websites.",
+        "status": "pending",
+        "dependencies": [2],
+        "priority": "high",
+        "details": "Implement the primary web scraping function including:\n- Finalize tender_sites_config.json with CSS selectors for 5-10 priority websites\n- Python Cloud Function with asyncio for concurrent scraping\n- Robust error handling for individual site failures\n- Rate limiting and respectful scraping practices\n- Data extraction for titles, URLs, deadlines, and descriptions\n- Output formatting for downstream processing",
+        "testStrategy": "Unit test the function locally with sample site configurations. Test error handling by simulating site failures. Verify concurrent processing works correctly and respects rate limits. Test with real websites to ensure selectors work.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Finalize tender_sites_config.json with selectors",
+            "description": "Research and configure CSS selectors for top 5-10 tender websites.",
+            "status": "pending",
+            "dependencies": [],
+            "acceptanceCriteria": "- Configuration file with 5-10 high-priority tender websites\n- CSS selectors for title, URL, deadline, description extraction\n- Site-specific configuration (rate limits, headers, etc.)\n- Validation of selectors against live websites\n- Documentation of selector maintenance procedures"
+          },
+          {
+            "id": 2,
+            "title": "Write Python Cloud Function with asyncio",
+            "description": "Implement the core scraping logic using asyncio for concurrent processing.",
+            "status": "pending",
+            "dependencies": [1],
+            "acceptanceCriteria": "- Cloud Function that reads from tender_sites_config.json\n- Asyncio implementation for concurrent site scraping\n- HTTP client with proper headers and user agent\n- Data extraction using BeautifulSoup or similar\n- JSON output with standardized opportunity structure"
+          },
+          {
+            "id": 3,
+            "title": "Implement robust error handling",
+            "description": "Add comprehensive error handling for network issues, parsing failures, and site changes.",
+            "status": "pending",
+            "dependencies": [2],
+            "acceptanceCriteria": "- Try-catch blocks for network requests\n- Graceful handling of parsing errors\n- Logging of failed sites without stopping execution\n- Retry logic with exponential backoff\n- Error reporting and alerting mechanisms"
+          },
+          {
+            "id": 4,
+            "title": "Unit test function locally",
+            "description": "Create comprehensive unit tests for the scraping function.",
+            "status": "pending",
+            "dependencies": [3],
+            "acceptanceCriteria": "- Unit tests for configuration parsing\n- Mock tests for HTTP requests\n- Tests for data extraction logic\n- Error handling test cases\n- Performance tests for concurrent processing"
+          },
+          {
+            "id": 5,
+            "title": "Deploy function via Terraform",
+            "description": "Deploy the Cloud Function using Terraform infrastructure code.",
+            "status": "pending",
+            "dependencies": [4],
+            "acceptanceCriteria": "- Cloud Function deployed with correct runtime\n- Environment variables configured\n- IAM permissions set correctly\n- Function accessible via HTTP trigger\n- Monitoring and logging enabled"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Develop Stage 2 Scraper & Archiver (stage2-scraper)",
+        "description": "Build the second stage that generates PDFs from opportunity pages and stores them in Google Drive and Cloud Storage.",
+        "status": "pending",
+        "dependencies": [3],
+        "priority": "high",
+        "details": "Implement PDF generation and storage including:\n- Puppeteer logic for PDF generation from URLs\n- Google Cloud Storage API integration for PDF upload\n- Google Drive API integration for shared folder storage\n- Unique file naming system for PDF identification\n- Error handling for PDF generation failures\n- File size optimization and quality settings",
+        "testStrategy": "Test PDF generation with various website layouts and content types. Verify uploads to both GCS and Google Drive work correctly. Test error handling for failed PDF generation and upload failures.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Write Puppeteer PDF generation logic",
+            "description": "Implement PDF generation from web pages using Puppeteer in Cloud Function.",
+            "status": "pending",
+            "dependencies": [],
+            "acceptanceCriteria": "- Puppeteer setup in Cloud Function environment\n- PDF generation with proper page formatting\n- Handling of dynamic content and JavaScript\n- PDF quality and size optimization\n- Error handling for page load failures"
+          },
+          {
+            "id": 2,
+            "title": "Integrate Google Cloud Storage API",
+            "description": "Add functionality to upload generated PDFs to Google Cloud Storage.",
+            "status": "pending",
+            "dependencies": [1],
+            "acceptanceCriteria": "- GCS client library integration\n- PDF upload to designated bucket\n- Unique file naming with metadata\n- Error handling for upload failures\n- File metadata storage (original URL, timestamp, etc.)"
+          },
+          {
+            "id": 3,
+            "title": "Integrate Google Drive API",
+            "description": "Add functionality to upload PDFs to shared Google Drive folder.",
+            "status": "pending",
+            "dependencies": [2],
+            "acceptanceCriteria": "- Google Drive API authentication\n- Upload to specific shared folder\n- File naming consistent with GCS\n- Permission settings for team access\n- Error handling for Drive API failures"
+          },
+          {
+            "id": 4,
+            "title": "Deploy and test function",
+            "description": "Deploy the stage2-scraper function and perform integration testing.",
+            "status": "pending",
+            "dependencies": [3],
+            "acceptanceCriteria": "- Function deployed via Terraform\n- Integration test with stage1-scraper output\n- End-to-end test of PDF generation and storage\n- Performance testing with various page types\n- Error handling validation"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Develop AI Analyst (gemini-extractor)",
+        "description": "Build the AI-powered analysis function that extracts structured data from PDFs using Gemini API.",
+        "status": "pending",
+        "dependencies": [4],
+        "priority": "high",
+        "details": "Implement AI-powered document analysis including:\n- Strategic Procurement Analyst prompt engineering\n- Cloud Function triggered by GCS PDF uploads\n- Gemini API integration with google-generativeai SDK\n- Secret Manager integration for API key retrieval\n- Structured JSON output generation\n- Pub/Sub message publishing for downstream processing",
+        "testStrategy": "Test prompt effectiveness with sample tender documents. Verify API integration and error handling. Test structured output parsing and validation. Validate Pub/Sub message publishing.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Craft Strategic Procurement Analyst prompt",
+            "description": "Design and optimize the AI prompt for tender document analysis.",
+            "status": "pending",
+            "dependencies": [],
+            "acceptanceCriteria": "- Detailed role-based prompt for procurement analysis\n- Instructions for extracting key tender information\n- JSON schema specification for output format\n- Examples of expected input and output\n- Prompt testing with sample documents"
+          },
+          {
+            "id": 2,
+            "title": "Write Cloud Function triggered by GCS",
+            "description": "Implement Cloud Function that responds to PDF uploads in GCS bucket.",
+            "status": "pending",
+            "dependencies": [1],
+            "acceptanceCriteria": "- GCS trigger configuration for PDF uploads\n- Function reads PDF content from storage\n- PDF text extraction functionality\n- Error handling for corrupted or unreadable PDFs\n- Logging and monitoring integration"
+          },
+          {
+            "id": 3,
+            "title": "Integrate Secret Manager for API key",
+            "description": "Add secure API key retrieval from Google Cloud Secret Manager.",
+            "status": "pending",
+            "dependencies": [2],
+            "acceptanceCriteria": "- Secret Manager client integration\n- Secure API key retrieval\n- Caching of API keys for performance\n- Error handling for secret access failures\n- IAM permissions validation"
+          },
+          {
+            "id": 4,
+            "title": "Implement Gemini API call",
+            "description": "Integrate with Gemini API using google-generativeai SDK for document analysis.",
+            "status": "pending",
+            "dependencies": [3],
+            "acceptanceCriteria": "- google-generativeai SDK integration\n- API call with crafted prompt and PDF content\n- Response parsing and validation\n- Error handling for API failures and rate limits\n- Token usage monitoring and optimization"
+          },
+          {
+            "id": 5,
+            "title": "Implement Pub/Sub publishing",
+            "description": "Add functionality to publish analysis results to Pub/Sub topic.",
+            "status": "pending",
+            "dependencies": [4],
+            "acceptanceCriteria": "- Pub/Sub client integration\n- Message publishing with structured JSON\n- Message attributes for routing and filtering\n- Error handling for publishing failures\n- Message ordering and deduplication"
+          },
+          {
+            "id": 6,
+            "title": "Deploy and test with sample PDF",
+            "description": "Deploy the function and perform end-to-end testing with sample documents.",
+            "status": "pending",
+            "dependencies": [5],
+            "acceptanceCriteria": "- Function deployed via Terraform\n- End-to-end test with sample PDF upload\n- Validation of AI analysis quality\n- Performance testing with various document types\n- Error handling and recovery testing"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Develop Data Storage Function (firestore-writer)",
+        "description": "Build the function that stores processed tender data in Firestore database.",
+        "status": "pending",
+        "dependencies": [5],
+        "priority": "high",
+        "details": "Implement data persistence including:\n- Cloud Function triggered by Pub/Sub messages\n- JSON data processing and validation\n- Firestore document creation with proper schema\n- Data indexing for efficient querying\n- Error handling and retry logic\n- Data deduplication mechanisms",
+        "testStrategy": "Test function with various JSON message formats. Verify Firestore document creation and schema compliance. Test error handling and retry mechanisms. Validate data deduplication logic.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Write Cloud Function for JSON data processing",
+            "description": "Implement function that receives and processes JSON data from Pub/Sub.",
+            "status": "pending",
+            "dependencies": [],
+            "acceptanceCriteria": "- Pub/Sub trigger configuration\n- JSON message parsing and validation\n- Data transformation for Firestore schema\n- Error handling for malformed messages\n- Logging of processing activities"
+          },
+          {
+            "id": 2,
+            "title": "Implement Firestore write logic",
+            "description": "Add functionality to create and update documents in Firestore database.",
+            "status": "pending",
+            "dependencies": [1],
+            "acceptanceCriteria": "- Firestore client library integration\n- Document creation with proper schema\n- Indexing configuration for efficient queries\n- Data validation before storage\n- Conflict resolution for duplicate entries"
+          },
+          {
+            "id": 3,
+            "title": "Deploy and test function",
+            "description": "Deploy the firestore-writer function and perform integration testing.",
+            "status": "pending",
+            "dependencies": [2],
+            "acceptanceCriteria": "- Function deployed via Terraform\n- Integration test with gemini-extractor output\n- Data validation in Firestore console\n- Performance testing with high message volume\n- Error handling and recovery validation"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "Build and Deploy Cloud Workflow",
+        "description": "Create the orchestration workflow that coordinates all pipeline components.",
+        "status": "pending",
+        "dependencies": [6],
+        "priority": "high",
+        "details": "Implement workflow orchestration including:\n- workflow.yaml file defining the complete pipeline sequence\n- Filter & Iterate logic for processing opportunities\n- events.await_message step for Pub/Sub synchronization\n- Error handling and retry mechanisms\n- Cloud Scheduler integration for automated execution\n- Monitoring and logging configuration",
+        "testStrategy": "Test workflow execution with manual triggers. Verify all steps execute in correct sequence. Test error handling and retry logic. Validate Cloud Scheduler integration.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Write workflow.yaml file",
+            "description": "Create the main workflow definition file with all pipeline steps.",
+            "status": "pending",
+            "dependencies": [],
+            "acceptanceCriteria": "- Complete workflow.yaml with all pipeline steps\n- Proper step sequencing and dependencies\n- Variable passing between steps\n- Error handling configuration\n- Timeout and retry settings"
+          },
+          {
+            "id": 2,
+            "title": "Implement Filter & Iterate logic",
+            "description": "Add logic to filter opportunities by keywords and process them iteratively.",
+            "status": "pending",
+            "dependencies": [1],
+            "acceptanceCriteria": "- Keyword filtering implementation\n- Iterative processing of filtered opportunities\n- Conditional logic for processing decisions\n- Parallel processing where appropriate\n- Progress tracking and reporting"
+          },
+          {
+            "id": 3,
+            "title": "Implement events.await_message step",
+            "description": "Add synchronization step to wait for Pub/Sub messages from AI analysis.",
+            "status": "pending",
+            "dependencies": [2],
+            "acceptanceCriteria": "- Pub/Sub message waiting implementation\n- Timeout configuration for message waiting\n- Message correlation and routing\n- Error handling for missing messages\n- Workflow continuation after message receipt"
+          },
+          {
+            "id": 4,
+            "title": "Deploy workflow via Terraform",
+            "description": "Deploy the Cloud Workflow using Terraform infrastructure code.",
+            "status": "pending",
+            "dependencies": [3],
+            "acceptanceCriteria": "- Workflow deployed with correct configuration\n- IAM permissions for workflow execution\n- Service account assignments\n- Monitoring and logging enabled\n- Workflow accessible for manual triggers"
+          },
+          {
+            "id": 5,
+            "title": "Create Cloud Scheduler job",
+            "description": "Set up automated daily execution of the workflow using Cloud Scheduler.",
+            "status": "pending",
+            "dependencies": [4],
+            "acceptanceCriteria": "- Cloud Scheduler job configured for daily execution\n- Proper timezone and schedule settings\n- Error handling for failed executions\n- Notification configuration for job failures\n- Manual trigger capability maintained"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "title": "End-to-End Pipeline Testing",
+        "description": "Perform comprehensive testing of the complete data pipeline from scraping to storage.",
+        "status": "pending",
+        "dependencies": [7],
+        "priority": "high",
+        "details": "Implement comprehensive testing including:\n- Manual workflow trigger and execution monitoring\n- End-to-end data flow verification\n- Error propagation and handling testing\n- Performance and scalability testing\n- Data quality validation\n- System integration verification",
+        "testStrategy": "Execute complete pipeline with test data. Monitor all components for correct operation. Verify data quality and completeness. Test error scenarios and recovery mechanisms.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Manual workflow trigger and monitoring",
+            "description": "Test manual execution of the complete workflow and monitor all steps.",
+            "status": "pending",
+            "dependencies": [],
+            "acceptanceCriteria": "- Successful manual workflow execution\n- All steps complete without errors\n- Proper logging and monitoring output\n- Execution time within acceptable limits\n- Resource usage monitoring"
+          },
+          {
+            "id": 2,
+            "title": "Verify end-to-end data flow",
+            "description": "Validate that data flows correctly through all pipeline stages.",
+            "status": "pending",
+            "dependencies": [1],
+            "acceptanceCriteria": "- Data successfully flows from scraping to Firestore\n- PDF generation and storage working correctly\n- AI analysis producing expected output\n- Data integrity maintained throughout pipeline\n- No data loss or corruption"
+          },
+          {
+            "id": 3,
+            "title": "Debug and resolve errors",
+            "description": "Identify and fix any issues discovered during testing.",
+            "status": "pending",
+            "dependencies": [2],
+            "acceptanceCriteria": "- All identified errors resolved\n- Error handling mechanisms validated\n- System stability under various conditions\n- Performance optimizations implemented\n- Documentation updated with findings"
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "title": "Prepare RAG Knowledge Base",
+        "description": "Build the Retrieval-Augmented Generation system for proposal creation assistance.",
+        "status": "pending",
+        "dependencies": [8],
+        "priority": "high",
+        "details": "Implement RAG system including:\n- Collection of 10-20 past winning proposals\n- Document processing script using unstructured.io\n- Semantic chunking and metadata enrichment\n- Embedding generation using Gemini embedding model\n- Vector database setup (Vertex AI Vector Search)\n- Knowledge base population and indexing",
+        "testStrategy": "Test document processing with various proposal formats. Verify embedding quality and semantic search accuracy. Test vector database operations and query performance.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Gather 10-20 past winning proposals",
+            "description": "Collect and organize historical proposal documents for knowledge base creation.",
+            "status": "pending",
+            "dependencies": [],
+            "acceptanceCriteria": "- 10-20 winning proposals collected in various formats\n- Documents organized by category/type\n- Metadata documented (client, date, value, etc.)\n- Quality assessment of document content\n- Legal clearance for use in AI system"
+          },
+          {
+            "id": 2,
+            "title": "Write document processing script",
+            "description": "Create Python script to process proposals using unstructured.io for text extraction.",
+            "status": "pending",
+            "dependencies": [1],
+            "acceptanceCriteria": "- Script handles PDF, DOCX, and other formats\n- Text extraction with structure preservation\n- Semantic chunking implementation\n- Metadata enrichment and tagging\n- Quality validation of processed content"
+          },
+          {
+            "id": 3,
+            "title": "Set up Vector Database",
+            "description": "Configure Vertex AI Vector Search for storing and querying document embeddings.",
+            "status": "pending",
+            "dependencies": [2],
+            "acceptanceCriteria": "- Vertex AI Vector Search index created\n- Proper configuration for embedding dimensions\n- Index optimization for query performance\n- Access controls and security settings\n- Monitoring and alerting configuration"
+          },
+          {
+            "id": 4,
+            "title": "Upload chunks and embeddings",
+            "description": "Process documents, generate embeddings, and populate the vector database.",
+            "status": "pending",
+            "dependencies": [3],
+            "acceptanceCriteria": "- All document chunks processed and embedded\n- Embeddings uploaded to vector database\n- Metadata properly indexed\n- Search functionality validated\n- Performance benchmarks established"
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "title": "Build BI Dashboard / CRM Interface",
+        "description": "Create business intelligence dashboard for viewing and managing tender opportunities.",
+        "status": "pending",
+        "dependencies": [9],
+        "priority": "medium",
+        "details": "Implement dashboard interface including:\n- Looker Studio connection to Firestore database\n- Opportunity listing with key fields display\n- Detail view for individual opportunities\n- Filtering and search capabilities\n- Real-time data updates\n- Export and reporting features",
+        "testStrategy": "Test dashboard connectivity and data display. Verify filtering and search functionality. Test real-time updates and performance with large datasets.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Connect Looker Studio to Firestore",
+            "description": "Set up data connection between Looker Studio and Firestore database.",
+            "status": "pending",
+            "dependencies": [],
+            "acceptanceCriteria": "- Looker Studio connected to Firestore\n- Data source configuration validated\n- Real-time data sync enabled\n- Access permissions configured\n- Connection stability tested"
+          },
+          {
+            "id": 2,
+            "title": "Design opportunities dashboard",
+            "description": "Create dashboard layout showing key opportunity information and metrics.",
+            "status": "pending",
+            "dependencies": [1],
+            "acceptanceCriteria": "- Dashboard displays project titles, clients, deadlines\n- Alignment scores and priority indicators\n- Summary statistics and trends\n- Responsive design for different screen sizes\n- User-friendly navigation and layout"
+          },
+          {
+            "id": 3,
+            "title": "Create detail view for opportunities",
+            "description": "Implement detailed view showing complete opportunity information.",
+            "status": "pending",
+            "dependencies": [2],
+            "acceptanceCriteria": "- Detailed view shows full JSON from Gemini analysis\n- Structured presentation of opportunity details\n- Links to original PDFs and sources\n- Action buttons for proposal creation\n- Print and export functionality"
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "title": "Build Proposal Copilot Interface",
+        "description": "Create AI-powered interface for generating proposal content using RAG system.",
+        "status": "pending",
+        "dependencies": [10],
+        "priority": "medium",
+        "details": "Implement proposal assistance interface including:\n- Simple UI with text input for user queries\n- RAG query backend with semantic search\n- Gemini integration for content generation\n- Response display and editing capabilities\n- Template management and customization\n- Version control for generated content",
+        "testStrategy": "Test RAG query accuracy and response quality. Verify UI responsiveness and user experience. Test with various query types and proposal sections.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create simple UI with text input",
+            "description": "Build user interface for proposal copilot with query input and response display.",
+            "status": "pending",
+            "dependencies": [],
+            "acceptanceCriteria": "- Clean, intuitive user interface\n- Text input area for user queries\n- Response display area with formatting\n- Loading indicators and progress feedback\n- Mobile-responsive design"
+          },
+          {
+            "id": 2,
+            "title": "Write RAG query backend logic",
+            "description": "Implement backend system for processing queries and retrieving relevant content.",
+            "status": "pending",
+            "dependencies": [1],
+            "acceptanceCriteria": "- Semantic search against vector database\n- Query preprocessing and optimization\n- Relevant chunk retrieval and ranking\n- Context assembly for AI generation\n- Performance optimization for fast responses"
+          },
+          {
+            "id": 3,
+            "title": "Display AI-generated draft",
+            "description": "Implement response display with formatting and editing capabilities.",
+            "status": "pending",
+            "dependencies": [2],
+            "acceptanceCriteria": "- Formatted display of AI-generated content\n- Basic editing capabilities\n- Copy and export functionality\n- Version history tracking\n- Quality feedback mechanisms"
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "title": "Team Training and Rollout",
+        "description": "Conduct training sessions and manage system rollout to end users.",
+        "status": "pending",
+        "dependencies": [11],
+        "priority": "medium",
+        "details": "Implement user adoption including:\n- Training session preparation and delivery\n- System demonstration and hands-on practice\n- User documentation and guides creation\n- Feedback collection and analysis\n- Support process establishment\n- Gradual rollout planning",
+        "testStrategy": "Conduct pilot training sessions with small groups. Gather feedback on usability and effectiveness. Test support processes and documentation completeness.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Conduct training session",
+            "description": "Deliver comprehensive training to Business Development and Proposal teams.",
+            "status": "pending",
+            "dependencies": [],
+            "acceptanceCriteria": "- Training materials prepared and reviewed\n- Interactive training session delivered\n- Hands-on practice with real scenarios\n- Q&A session and troubleshooting\n- Training effectiveness measured"
+          },
+          {
+            "id": 2,
+            "title": "Demonstrate system usage",
+            "description": "Show practical usage of dashboard and proposal copilot features.",
+            "status": "pending",
+            "dependencies": [1],
+            "acceptanceCriteria": "- Live demonstration of all key features\n- Real-world use case examples\n- Best practices and tips shared\n- Common pitfalls and solutions covered\n- User confidence in system operation"
+          },
+          {
+            "id": 3,
+            "title": "Gather feedback and create backlog",
+            "description": "Collect user feedback and prioritize future improvements.",
+            "status": "pending",
+            "dependencies": [2],
+            "acceptanceCriteria": "- Structured feedback collection process\n- User satisfaction survey results\n- Feature request prioritization\n- Bug report and resolution process\n- Continuous improvement roadmap"
+          }
+        ]
+      },
+      {
+        "id": 13,
+        "title": "Scraper Maintenance System",
+        "description": "Implement ongoing maintenance system for web scrapers including monitoring and updates.",
+        "status": "pending",
+        "dependencies": [12],
+        "priority": "high",
+        "details": "Implement maintenance system including:\n- Automated monitoring for scraper failures\n- Alert system for zero results or errors\n- Regular performance review process\n- CSS selector update procedures\n- Site change detection mechanisms\n- Maintenance scheduling and tracking",
+        "testStrategy": "Test monitoring system with simulated failures. Verify alert mechanisms work correctly. Test selector update procedures with changed websites.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Set up automated monitoring",
+            "description": "Create monitoring system to detect scraper failures and performance issues.",
+            "status": "pending",
+            "dependencies": [],
+            "acceptanceCriteria": "- Monitoring dashboard for scraper health\n- Automated alerts for failures and zero results\n- Performance metrics tracking\n- Historical trend analysis\n- Integration with existing monitoring tools"
+          },
+          {
+            "id": 2,
+            "title": "Regular scraper performance review",
+            "description": "Establish process for weekly review and maintenance of scraper configurations.",
+            "status": "pending",
+            "dependencies": [1],
+            "acceptanceCriteria": "- Weekly review schedule established\n- Performance metrics analysis process\n- CSS selector validation procedures\n- Site change detection methods\n- Update deployment process"
+          }
+        ]
+      },
+      {
+        "id": 14,
+        "title": "System Monitoring and Optimization",
+        "description": "Implement comprehensive system monitoring and ongoing optimization processes.",
+        "status": "pending",
+        "dependencies": [13],
+        "priority": "medium",
+        "details": "Implement monitoring and optimization including:\n- Cloud Function cost and performance monitoring\n- Memory and timeout optimization\n- Gemini prompt refinement process\n- API usage tracking and optimization\n- System performance benchmarking\n- Cost optimization strategies",
+        "testStrategy": "Monitor system performance under various loads. Test optimization strategies and measure improvements. Verify cost tracking accuracy.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Monitor costs and performance",
+            "description": "Set up comprehensive monitoring for system costs and performance metrics.",
+            "status": "pending",
+            "dependencies": [],
+            "acceptanceCriteria": "- Cost tracking dashboard\n- Performance metrics monitoring\n- Resource utilization analysis\n- Optimization recommendations\n- Budget alert system"
+          },
+          {
+            "id": 2,
+            "title": "Review and refine Gemini prompts",
+            "description": "Establish process for ongoing improvement of AI prompts and responses.",
+            "status": "pending",
+            "dependencies": [1],
+            "acceptanceCriteria": "- Prompt performance evaluation metrics\n- A/B testing framework for prompts\n- Quality assessment process\n- Prompt version control system\n- Continuous improvement workflow"
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "title": "Knowledge Base Expansion",
+        "description": "Implement process for continuously expanding and updating the RAG knowledge base.",
+        "status": "pending",
+        "dependencies": [14],
+        "priority": "low",
+        "details": "Implement knowledge base management including:\n- Process for adding new winning proposals\n- Quality control for new content\n- Knowledge base versioning and updates\n- Performance impact assessment\n- Content relevance maintenance\n- Automated content refresh procedures",
+        "testStrategy": "Test knowledge base update procedures. Verify content quality and relevance. Measure impact on system performance and accuracy.",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Add new winning proposals to RAG",
+            "description": "Establish monthly process for incorporating new successful proposals into knowledge base.",
+            "status": "pending",
+            "dependencies": [],
+            "acceptanceCriteria": "- Monthly content review process\n- Quality assessment criteria\n- Automated processing pipeline\n- Knowledge base update procedures\n- Performance impact monitoring"
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "created": "2025-01-13T16:30:00.000Z",
+      "updated": "2025-01-13T16:30:00.000Z",
+      "description": "Tasks for AI-Powered Tender Discovery and Proposal Assistant system",
+      "project_name": "Tender Discovery System",
+      "total_tasks": 15,
+      "total_subtasks": 67,
+      "estimated_duration": "10 weeks + ongoing maintenance",
+      "complexity_score": 8.5,
+      "risk_level": "HIGH",
+      "technology_stack": [
+        "Google Cloud Platform",
+        "Python",
+        "Terraform",
+        "Gemini API",
+        "Puppeteer",
+        "Firestore",
+        "Cloud Functions",
+        "Cloud Workflows",
+        "Pub/Sub",
+        "Vector Database"
+      ],
+      "key_challenges": [
+        "Web scraping reliability and maintenance",
+        "AI integration complexity and costs",
+        "RAG system implementation",
+        "Event-driven architecture orchestration",
+        "Ongoing scraper maintenance burden"
+      ]
+    }
+  }
+}
+
