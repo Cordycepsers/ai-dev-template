@@ -77,3 +77,105 @@
 5.  **Testing:** All new features (`feat:`) must be accompanied by corresponding tests. All bug fixes (`fix:`) must include a regression test.
 
 
+
+
+---
+
+## **4. How to Use This AGENTS.md File**
+
+### **For AI Coding Assistants**
+When working with AI coding assistants (Claude Code, GitHub Copilot, OpenAI Codex), always provide this file as context:
+
+```
+"Please read docs/AGENTS.md for complete context about this project. 
+You are [AgentName] working on [specific task]."
+```
+
+### **Agent Selection Guide**
+Choose the right agent for your task:
+
+- **ArchitectAgent** - System design, technology choices, data modeling
+- **CodeReviewAgent** - Code quality, bug detection, performance optimization
+- **DocumentationAgent** - README files, API docs, inline comments
+- **DeploymentAgent** - Docker, CI/CD, infrastructure automation
+- **BudgetAgent** - Cost optimization, resource management
+- **TestingAgent** - Unit tests, integration tests, test coverage
+
+### **Example Usage**
+```bash
+# Starting a new feature
+"I'm ArchitectAgent. Based on the PRD in .taskmaster/docs/prd.txt, 
+help me design the database schema for the user authentication system."
+
+# Code review
+"I'm CodeReviewAgent. Please review this Python function for bugs, 
+performance issues, and adherence to the project standards."
+
+# Writing tests
+"I'm TestingAgent. Create comprehensive pytest tests for this API endpoint, 
+following the testing guidelines in this AGENTS.md file."
+```
+
+### **Nested AGENTS.md Files**
+For large projects, you can create specialized AGENTS.md files in subdirectories:
+
+```
+project/
+├── AGENTS.md                    # Main project instructions
+├── frontend/
+│   └── AGENTS.md               # Frontend-specific instructions
+├── backend/
+│   └── AGENTS.md               # Backend-specific instructions
+└── docs/
+    └── AGENTS.md               # Documentation-specific instructions
+```
+
+The AI will automatically use the **closest** AGENTS.md file to the code being worked on.
+
+### **Updating Instructions**
+This AGENTS.md file is **living documentation**. Update it when:
+- Project requirements change
+- New technologies are adopted
+- Coding standards evolve
+- Common issues are discovered
+- Team processes change
+
+### **FAQ**
+
+**Q: Are there required fields in AGENTS.md?**
+A: No. AGENTS.md is just standard Markdown. Use any headings you like.
+
+**Q: What if instructions conflict?**
+A: The closest AGENTS.md to the edited file wins; explicit user prompts override everything.
+
+**Q: Will agents run testing commands automatically?**
+A: Yes—if you list them. Agents will attempt to execute relevant checks and fix failures.
+
+**Q: Can I update this later?**
+A: Absolutely. Treat AGENTS.md as living documentation that evolves with your project.
+
+---
+
+## **5. Project-Specific Context**
+
+### **Current Project State**
+- **Phase:** [Development/Testing/Production]
+- **Priority Features:** [List current priorities]
+- **Known Issues:** [Any blockers or technical debt]
+- **Recent Changes:** [Major updates or architectural changes]
+
+### **Team Preferences**
+- **Code Review:** All code must be reviewed before merging
+- **Testing:** Minimum 80% test coverage required
+- **Documentation:** All public APIs must be documented
+- **Performance:** Page load times under 2 seconds
+- **Security:** Follow OWASP guidelines
+
+### **External Dependencies**
+- **APIs:** [List external services and their documentation]
+- **Databases:** [Connection details and schema information]
+- **Third-party Libraries:** [Approved libraries and versions]
+- **Environment Variables:** [Required configuration]
+
+Remember: The goal is to provide AI assistants with enough context to work effectively without constant clarification. Keep this file updated and specific to your project's needs.
+

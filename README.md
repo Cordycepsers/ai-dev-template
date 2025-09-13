@@ -170,6 +170,7 @@ Review this Python function for bugs and performance issues."
 ### **Getting Started Guides**
 - **[🔄 WORKFLOW.md](docs/WORKFLOW.md)** - Complete ADHD-friendly development workflow
 - **[🤖 AGENTS.md](docs/AGENTS.md)** - AI agent personas and instructions
+- **[📖 HOW-TO-USE-AGENTS.md](docs/HOW-TO-USE-AGENTS.md)** - Complete guide to using AGENTS.md effectively
 - **Setup Scripts** - Platform-specific automated setup
 
 ### **Workflow Overview**
