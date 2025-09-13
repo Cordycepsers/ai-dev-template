@@ -176,8 +176,10 @@ fi
 
 # Initialize Taskmaster
 print_status "Initializing Taskmaster..."
+# Always ensure the full directory structure exists, as .taskmaster exists
+# in the repo but its subdirectories may not.
+mkdir -p .taskmaster/{docs,templates,tasks/{todo,in-progress,done}}
 if [ ! -d ".taskmaster" ]; then
-    mkdir -p .taskmaster/{docs,templates,tasks/{todo,in-progress,done}}
     print_success "Created Taskmaster directory structure"
 fi
 
