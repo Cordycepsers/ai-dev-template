@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="docs/ai-dev.png" alt="Hero Image" width="800"/>
+</div>
+
 # 🤖 AI Development Template
 
 > **The ultimate template for AI-assisted development with ADHD-friendly workflows and budget-conscious token usage.**
