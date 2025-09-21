@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="docs/ai-dev.png" alt="Hero Image" width="800"/>
+  <img src="docs/ai-dev.jpg" alt="Hero Image" width="800"/>
 </div>
 
 # 🤖 AI Development Template
